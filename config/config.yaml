@@ -1,0 +1,35 @@
+# this file contains everything to configure the workflow on a global scale.
+# In case of sample based data, it should be complemented by a samples file that contains
+# one row per sample that can easily be parsed via pandas.
+sra_runtable:
+    filename: "config/GSE167154.SraRunTable.csv"
+    runid: "Run"
+    sampid: "GEO_Accession (exp)"
+    layout: "LibraryLayout"
+    assay: "Assay Type"
+
+# directory for temps
+local_tmp: "/tmp"
+
+# remote downloads
+downloads:
+    GRCh38.d1.vd1.fa.tar.gz:
+        url: "https://api.gdc.cancer.gov/data/254f697d-310d-4d7d-a27b-27fbf767a834"
+        md5: "3ffbcfe2d05d43206f57f81ebb251dc9"
+
+# download tcga reference genome
+download_tcga_genome:
+    args: "--remote-name --remote-header-name --output-dir $(dirname {output})"
+
+# sequences 
+sequences:
+    genome_tar_gz: "resources/downloads/GRCh38.d1.vd1.fa.tar.gz"
+    genome_fa: "resources/genome/GRCh38.d1.vd1.fa"
+    genome_fasta: "resources/genome/GRCh38.fasta"
+
+# alignment
+bowtie_alignment:
+    index_dir: "resources/indexes/bowtie"
+    index: "resources/indexes/bowtie/GRCh38"
+    
+
