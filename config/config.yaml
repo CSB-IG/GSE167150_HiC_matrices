@@ -2,14 +2,18 @@
 # In case of sample based data, it should be complemented by a samples file that contains
 # one row per sample that can easily be parsed via pandas.
 sra_runtable:
-    filename: "config/GSE167154.SraRunTable.csv"
+    filename: "config/SraRunTable.csv"
     runid: "Run"
     sampid: "GEO_Accession (exp)"
     layout: "LibraryLayout"
-    assay: "Assay Type"
+
+# Samples metadata file
+samples_metadata:
+    filename: "config/hic_samples_metadata.csv"
+    sampid_meta: "geo_accession"
 
 # directory for temps
-local_tmp: "/tmp"
+tmpdir: "/tmp"
 
 # remote downloads
 downloads:
@@ -26,10 +30,17 @@ sequences:
     genome_tar_gz: "resources/downloads/GRCh38.d1.vd1.fa.tar.gz"
     genome_fa: "resources/genome/GRCh38.d1.vd1.fa"
     genome_fasta: "resources/genome/GRCh38.fasta"
+    chromosome_sizes: "config/hg38.chrom.sizes"
 
 # alignment
 bowtie_alignment:
     index_dir: "resources/indexes/bowtie"
     index: "resources/indexes/bowtie/GRCh38"
-    
+ 
+# genome digestion
+restriction_fragments:
+    bed: "resources/restriction_fragments/GRCh38_arima.bed"
+    enzyme: "^GATC G^ANTC"  # digest_genome.py works for a list of sites, space separated
 
+# fastq files
+sra_to_fastq_threads: 8
