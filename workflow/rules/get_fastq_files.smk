@@ -4,33 +4,35 @@
 wildcard_constraints:
     sra_run = "SRR[0-9]{6,9}"
 
+"""
+Download SRA file 
+"""
 rule prefetch_sra:
-    """
-    Download SRA file 
-    """
-   conda: 
+    conda: 
         "../envs/sra_data.yaml"
     output:
-        temp("results/sra/{sra_run}/{sra_run}.sra")
+        temp("results/{dataset}/sra/{samp}/{sra_run}.sra")
     log:
-        "results/sra/{sra_run}/prefetch_sra_{sra_run}.log"
+        "results/{dataset}/sra/{samp}/prefetch_{sra_run}.log"
     shell:
         '''
 	prefetch\
+            --max-size 50G\
 	    {wildcards.sra_run}\
 	    --output-file {output[0]}\
 	    &> {log}
 	'''
 
+#fastq-dump adds SRA ID to each read in the file, to avoid it, use –-origfmt
+"""
+dump SRA to FASTQ
+"""
 rule sra_to_fastq:
-    """
-    dump SRA to FASTQ
-    """
     conda:
         "../envs/sra_data.yaml"
     output:
-        temp("results/fastq/{sra_run}/{sra_run}_1.fastq.gz"),
-        temp("results/fastq/{sra_run}/{sra_run}_2.fastq.gz")
+        "results/{dataset}/fastq/{samp}/{sra_run}_1.fastq.gz",
+        "results/{dataset}/fastq/{samp}/{sra_run}_2.fastq.gz"
     input:
         rules.prefetch_sra.output
     params:
@@ -38,10 +40,10 @@ rule sra_to_fastq:
     threads: 
         config['sra_to_fastq_threads']
     log:
-        "results/fastq/{sra_run}/sra_to_fastq_{sra_run}.log"
+        "results/{dataset}/fastq/{samp}/sra_to_fastq_{sra_run}.log"
     shell:
         '''
-        tdir=$(mktemp -d {config[local_tmp]}/{rule}.{wildcards.sra_run}.XXXXXX)
+        tdir=$(mktemp -d {config[tmpdir]}/{rule}.{wildcards.sra_run}.XXXXXX)
 	parallel-fastq-dump\
             --threads {threads}\
             --tmpdir $tdir\
