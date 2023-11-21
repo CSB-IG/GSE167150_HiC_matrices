@@ -13,8 +13,8 @@ RAW_DIR = rawdata
 #######################################################################
 ## SYSTEM AND SCHEDULER - Start Editing Here !!
 #######################################################################
-N_CPU = 2
-SORT_RAM = 1000M
+N_CPU = {{ params.threads }}
+SORT_RAM = {{ params.memory }}
 LOGFILE = hicpro.log
 
 JOB_NAME = 
@@ -27,8 +27,8 @@ JOB_MAIL =
 ## Data
 #########################################################################
 
-PAIR1_EXT = _R1
-PAIR2_EXT = _R2
+PAIR1_EXT = _1
+PAIR2_EXT = _2
 
 #######################################################################
 ## Alignment options
@@ -36,7 +36,7 @@ PAIR2_EXT = _R2
 
 MIN_MAPQ = 10
 
-BOWTIE2_IDX_PATH = 
+BOWTIE2_IDX_PATH = {{ params.index }}
 BOWTIE2_GLOBAL_OPTIONS = --very-sensitive -L 30 --score-min L,-0.6,-0.2 --end-to-end --reorder
 BOWTIE2_LOCAL_OPTIONS =  --very-sensitive -L 20 --score-min L,-0.6,-0.2 --end-to-end --reorder
 
@@ -44,8 +44,8 @@ BOWTIE2_LOCAL_OPTIONS =  --very-sensitive -L 20 --score-min L,-0.6,-0.2 --end-to
 ## Annotation files
 #######################################################################
 
-REFERENCE_GENOME = hg19
-GENOME_SIZE = chrom_hg19.sizes
+REFERENCE_GENOME = {{ params.refgenome }}
+GENOME_SIZE = {{ params.chromosomes }}
 
 #######################################################################
 ## Allele specific analysis
@@ -64,8 +64,8 @@ REPORT_CAPTURE_REPORTER = 1
 ## Digestion Hi-C
 #######################################################################
 
-GENOME_FRAGMENT = HindIII_resfrag_hg19.bed
-LIGATION_SITE = AAGCTAGCTT
+GENOME_FRAGMENT = {{ params.fragments }}
+LIGATION_SITE = {{ params.ligations }}
 MIN_FRAG_SIZE = 
 MAX_FRAG_SIZE =
 MIN_INSERT_SIZE =
@@ -86,7 +86,7 @@ RM_DUP = 1
 ## Contact Maps
 #######################################################################
 
-BIN_SIZE = 20000 40000 150000 500000 1000000
+BIN_SIZE = {{ params.bins }}
 MATRIX_FORMAT = upper
 
 #######################################################################

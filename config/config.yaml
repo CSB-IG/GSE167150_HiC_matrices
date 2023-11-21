@@ -30,7 +30,6 @@ sequences:
     genome_tar_gz: "resources/downloads/GRCh38.d1.vd1.fa.tar.gz"
     genome_fa: "resources/genome/GRCh38.d1.vd1.fa"
     genome_fasta: "resources/genome/GRCh38.fasta"
-    chromosome_sizes: "config/hg38.chrom.sizes"
 
 # alignment
 bowtie_alignment:
@@ -44,3 +43,18 @@ restriction_fragments:
 
 # fastq files
 sra_to_fastq_threads: 8
+
+# hicpro
+hicpro:
+    hic_tissue_PRJNA70339:
+        threads: 14
+        sort_mem: "1000M"
+        bwt2_index: "resources/indexes/bowtie/"
+        chr_sizes: "resources/hg38.chrom.sizes"
+        ref: "GRCh38"
+        genome_frags: "resources/restriction_fragments/GRCh38_arima.bed"
+        ligation_site: "GATCGATC,GANTGATC,GANTANTC,GATCANTC"
+        resolutions: "1000 5000 10000 20000 40000 150000 500000 1000000"
+
+        
+        
