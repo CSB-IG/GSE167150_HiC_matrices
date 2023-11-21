@@ -1,4 +1,31 @@
-# Main entrypoint of the workflow. 
-# Please follow the best practices: 
-# https://snakemake.readthedocs.io/en/stable/snakefiles/best_practices.html,
-# in particular regarding the standardized folder structure mentioned there. 
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+from snakemake.utils import min_version
+from snakemake.exceptions import WorkflowError
+import os
+import pandas as pd
+
+min_version("6.4.1")
+
+configfile: "config/config.yaml"
+
+wildcard_constraints:
+    sample_id = "GSM[0-9]{6,9}"
+
+include: "rules/common.smk"
+include: "rules/remote_download.smk"
+include: "rules/untar_tcga_genome.smk"
+include: "rules/get_fastq_files.smk"
+include: "rules/restriction_fragments.smk"
+include: "rules/bowtie_index.smk"
+include: "rules/render_hicpro_config"
+include: "rules/hic_pro.smk"
+
+# Needs to be updated
+s_rna=assays.loc["RNA-Seq"]['sampid']
+
+# Needs to be updated
+rule all:
+    input:
+        expand("results/completed/{e}_{s}_complete.txt", e="RNAseq", s=s_rna)
+

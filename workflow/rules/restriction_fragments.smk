@@ -10,7 +10,7 @@ rule restriction_fragments:
     input:
         config['sequences']['genome_fasta']
     params:
-        enzyme = config['restriction_fragments']['enzyme']
+        enzyme = config['restriction_fragments']['enzyme'],
         script = "../scripts/digest_genome.py" 
     shell:
         '''
