@@ -3,12 +3,14 @@
 
 # function to determine if the curl command has special options or not
 #
-def curl_common_args(wildcards):
-    if wildcards.file == config['sequences']['genome_tar_gz']:
+# ...
+
+def curl_common_args(wildcards, output):
+    if wildcards.file == config['sequences']['genome_tcga']:
         return config['download_tcga_genome']['args']
     else:
-        return f" > {output}"
-    
+        return ""
+
 rule remote_download:
     """
     Downloads a remote file and checks the md5sum
@@ -20,14 +22,13 @@ rule remote_download:
     params:
         url = lambda wildcards: config['downloads'][wildcards.file]['url'],
         md5 = lambda wildcards: config['downloads'][wildcards.file]['md5'],
-        common_args = curl_common_args
-
+        common_args = lambda wildcards, output: curl_common_args(wildcards, output)
     shell:
         '''
-	curl\
+        curl\
             -L {params.url}\
-            {params.common_args}
+            {params.common_args}\
+            > {output}
 
         echo "{params.md5}  {output}" | md5sum -c -
         '''
-

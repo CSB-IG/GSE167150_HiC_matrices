@@ -8,7 +8,7 @@ rule untar_tcga_genome:
     output:
         config['sequences']['genome_fasta']
     input:
-        config['sequences']['genome_tar_gz']
+        config['sequences']['genome_tcga']
     params:
         original=config['sequences']['genome_fa']
     shell:
