@@ -9,19 +9,19 @@ def get_runs(wildcards, s):
         msg = f'All runs for sample "{s}" should be PAIRED for this rule'
         raise WorkflowError(msg)
 
-    return expand("results/{{dataset}}/fastq/{samp}/{sra_run}_{r}.fastq.gz", samp=s, sra_run=_sruns, r=[1,2])
+    return expand("results/{{dataset}}/fastq/{samp}/{sra_run}_{r}.fastq.gz", samp=s, sra_run=_sruns, r=[1, 2])
 
-def get_fastq_files(wildcards):
+def get_raw_files(wildcards):
     # obtain the samples from the dataset
-    _samps = dsets.loc[wildcards.dataset][sample]
+    _samps = dsets.loc[wildcards.dataset]['sample']
 
-    # for each sample do the runs and layouts check
-    # obtain its runs and flatten runs list
-    runs_list = [item for sample in _samps for item in get_runs(sample)]
+    # for each sample, get the runs
+    runs_list = [get_runs(wildcards, sample) for sample in _samps]
 
-    # return all runs
-    return(runs_list)
-
+    # flatten the list of runs
+    flattened_runs = [item for sublist in runs_list for item in sublist]
+    
+    return flattened_runs
 
 rule run_hicpro:
     """
@@ -30,13 +30,14 @@ rule run_hicpro:
     output: 
         directory("results/{dataset}/hicpro")
     input:
-        get_fastq_files,
+        get_raw_files,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
-        hicpro_config = "results/{dataset}/hicpro/config-hicpro.txt" 
+        hicpro_config = "resources/{dataset}/config-hicpro.txt"
     params:
         fastq_dir = "results/{dataset}/fastq"
     container:
+        'docker://nservant/hicpro:latest'
     shell:
         '''
         HiC-Pro\
@@ -45,3 +46,8 @@ rule run_hicpro:
             -c {input.hicpro_config}
         '''
 
+rule hicpro_dataset_complete:
+    output:
+        touch("results/{dataset}/{dataset}_hicpro_complete.txt")
+    input:
+        rules.run_hicpro.output
