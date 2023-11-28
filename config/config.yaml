@@ -27,7 +27,7 @@ download_tcga_genome:
 
 # sequences 
 sequences:
-    genome_tar_gz: "resources/downloads/GRCh38.d1.vd1.fa.tar.gz"
+    genome_tcga: "resources/downloads/GRCh38.d1.vd1.fa.tar.gz"
     genome_fa: "resources/genome/GRCh38.d1.vd1.fa"
     genome_fasta: "resources/genome/GRCh38.fasta"
 
@@ -46,7 +46,7 @@ sra_to_fastq_threads: 8
 
 # hicpro
 hicpro:
-    hic_tissue_PRJNA70339:
+    hic_tissue_PRJNA703392:
         threads: 14
         sort_mem: "1000M"
         bwt2_index: "resources/indexes/bowtie/"
