@@ -33,7 +33,7 @@ rule run_hicpro:
         get_raw_files,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
-        hicpro_config = "resources/{dataset}/config-hicpro.txt"
+        hicpro_config = "resources/rendered_config_hicpro_files/{dataset}/config-hicpro.txt"
     params:
         fastq_dir = "results/{dataset}/fastq"
     container:
