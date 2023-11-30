@@ -13,8 +13,7 @@ rule bowtie2_build:
             ".4.bt2",
             ".rev.1.bt2",
             ".rev.2.bt2",
-        ),
-        directory(config['bowtie_alignment']['index_dir'])
+        )
     log:
         "logs/bowtie2_build/build.log",
     params:
