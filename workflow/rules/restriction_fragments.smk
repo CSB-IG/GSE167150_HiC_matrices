@@ -11,7 +11,7 @@ rule restriction_fragments:
         config['sequences']['genome_fasta']
     params:
         enzyme = config['restriction_fragments']['enzyme'],
-        script = "workflow/scripts/digest_genome.py" 
+        script = "workflow/scripts/digest_genome.py"
     shell:
         '''
         python {params.script}\

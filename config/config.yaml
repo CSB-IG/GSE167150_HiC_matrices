@@ -37,9 +37,10 @@ bowtie_alignment:
     index: "resources/indexes/bowtie/GRCh38"
  
 # genome digestion
-restriction_fragments:
+restriction_fragments: # I should add a dataset thing here
     bed: "resources/restriction_fragments/GRCh38_arima.bed"
     enzyme: "^GATC G^ANTC"  # digest_genome.py works for a list of sites, space separated
+    name: "arima"
 
 # fastq files
 sra_to_fastq_threads: 8
