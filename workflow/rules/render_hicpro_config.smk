@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 # -*- coding utf-8 -*-
 
+import os
+
 rule render_hicpro_config:
     """ 
     Use jinja template to render a config file for hicpro
@@ -12,7 +14,7 @@ rule render_hicpro_config:
     params:
         threads = lambda wc: config['hicpro'][wc.dataset]['threads'],
         memory = lambda wc: config['hicpro'][wc.dataset]['sort_mem'],
-        index = lambda wc: config['hicpro'][wc.dataset]['bwt2_index'],
+        index = lambda wc: os.path.realpath(config['hicpro'][wc.dataset]['bwt2_index']),
         refgenome = lambda wc: config['hicpro'][wc.dataset]['ref'],
         chromosomes = lambda wc: config['hicpro'][wc.dataset]['chr_sizes'],
         fragments = lambda wc: config['hicpro'][wc.dataset]['genome_frags'],
