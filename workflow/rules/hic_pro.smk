@@ -28,26 +28,23 @@ rule run_hicpro:
     Run Hi-C Pro on FASTQ files
     """
     output: 
-        directory("results/{dataset}/hicpro")
+        touch("results/{dataset}/hicpro/{dataset}_hicpro_complete.txt")
     input:
         get_raw_files,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
+        hicpro = config['software']['hicpro_bin'],
         hicpro_config = "resources/rendered_config_hicpro_files/{dataset}/config-hicpro.txt"
     params:
-        fastq_dir = "results/{dataset}/fastq"
-    container:
-        'docker://hreypar/csbig-hicpro:latest'
+        fastq_dir = "results/{dataset}/fastq",
+        out_dir = "results/{dataset}/hicpro"
+    conda:
+        "../envs/hicpro.yaml"
     shell:
         '''
-        HiC-Pro\
+        {input.hicpro}\
             -i {params.fastq_dir}\
-            -o {output}\
+            -o {params.out_dir}\
             -c {input.hicpro_config}
         '''
 
-rule hicpro_dataset_complete:
-    output:
-        touch("results/{dataset}/{dataset}_hicpro_complete.txt")
-    input:
-        rules.run_hicpro.output
