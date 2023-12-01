@@ -3,8 +3,6 @@
 
 # function to determine if the curl command has special options or not
 #
-# ...
-
 def curl_common_args(wildcards, output):
     if wildcards.file == config['sequences']['genome_tcga']:
         return config['download_tcga_genome']['args']
