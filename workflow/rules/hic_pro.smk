@@ -37,7 +37,7 @@ rule run_hicpro:
     params:
         fastq_dir = "results/{dataset}/fastq"
     container:
-        'docker://nservant/hicpro:latest'
+        'docker://hreypar/csbig-hicpro:latest'
     shell:
         '''
         HiC-Pro\
