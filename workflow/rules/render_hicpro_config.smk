@@ -16,8 +16,8 @@ rule render_hicpro_config:
         memory = lambda wc: config['hicpro'][wc.dataset]['sort_mem'],
         index = lambda wc: os.path.realpath(config['hicpro'][wc.dataset]['bwt2_index']),
         refgenome = lambda wc: config['hicpro'][wc.dataset]['ref'],
-        chromosomes = lambda wc: config['hicpro'][wc.dataset]['chr_sizes'],
-        fragments = lambda wc: config['hicpro'][wc.dataset]['genome_frags'],
+        chromosomes = lambda wc: os.path.realpath(config['hicpro'][wc.dataset]['chr_sizes']),
+        fragments = lambda wc: os.path.realpath(config['hicpro'][wc.dataset]['genome_frags']),
         ligations = lambda wc: config['hicpro'][wc.dataset]['ligation_site'],
         bins = lambda wc: config['hicpro'][wc.dataset]['resolutions']
     template_engine:
