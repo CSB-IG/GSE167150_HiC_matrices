@@ -57,7 +57,7 @@ sra_to_fastq_threads: 8
 # hicpro
 hicpro:
     hic_tissue_PRJNA703392:
-        threads: 48
+        threads: 38
         sort_mem: "1000M"
         bwt2_index: "resources/indexes/bowtie"
         chr_sizes: "resources/hg38.chrom.sizes"

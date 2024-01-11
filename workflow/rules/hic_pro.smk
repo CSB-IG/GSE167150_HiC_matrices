@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
 def get_runs(wildcards, s):
     _sruns = samples.loc[s]['runid']
     _layouts = runs.loc[_sruns]['layout']
@@ -33,7 +35,7 @@ rule run_hicpro:
         get_raw_files,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
-        hicpro = config['software']['hicpro_bin'],
+        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
         hicpro_config = "resources/rendered_config_hicpro_files/{dataset}/config-hicpro.txt"
     params:
         fastq_dir = "results/{dataset}/fastq",
