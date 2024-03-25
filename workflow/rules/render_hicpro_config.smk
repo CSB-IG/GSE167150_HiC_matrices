@@ -8,7 +8,7 @@ rule render_hicpro_config:
     Use jinja template to render a config file for hicpro
     """
     output:
-        "resources/rendered_config_hicpro_files/{dataset}/config-hicpro.txt"
+        "resources/{dataset}/config-hicpro.txt"
     input:
         "resources/template_config-hicpro.txt"
     params:

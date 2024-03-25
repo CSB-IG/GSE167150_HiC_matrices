@@ -15,7 +15,7 @@ def get_runs(wildcards, s):
 
 def get_raw_files(wildcards):
     # obtain the samples from the dataset
-    _samps = dsets.loc[wildcards.dataset]['sample']
+    _samps = datasets.loc[wildcards.dataset]['sample']
 
     # for each sample, get the runs
     runs_list = [get_runs(wildcards, sample) for sample in _samps]
@@ -25,26 +25,36 @@ def get_raw_files(wildcards):
     
     return flattened_runs
 
+def get_allvalidpairs(wildcards):
+    samps = datasets.loc[wildcards.dataset]['sample']
+
+    return expand("results/{{dataset}}/hicpro/hic_results/data/{samp}/{samp}.allValidPairs", samp=samps)
+
 rule run_hicpro:
     """
     Run Hi-C Pro on FASTQ files
     """
     output: 
-        touch("results/{dataset}/hicpro/{dataset}_hicpro_complete.txt")
+        temp("results/{dataset}/hicpro/bowtie_results/bwt2_global"),
+        temp("results/{dataset}/hicpro/bowtie_results/bwt2_local"),
+        touch("results/{dataset}/hicpro/{dataset}.complete"),
+        get_allvalidpairs
     input:
+#       hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
         get_raw_files,
-        rules.restriction_fragments.output,
+        "resources/{dataset}/fragments.bed",
         rules.bowtie2_build.output,
-        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
-        hicpro_config = "resources/rendered_config_hicpro_files/{dataset}/config-hicpro.txt"
+        hicpro_config = "resources/{dataset}/config-hicpro.txt"
     params:
+        # hicpro will emulate the input fastq directory structure for the output
         fastq_dir = "results/{dataset}/fastq",
         out_dir = "results/{dataset}/hicpro"
-    conda:
-        "../envs/hicpro.yaml"
+    container:
+        'docker://nservant/hicpro:latest'
     shell:
         '''
-        {input.hicpro}\
+#       {input.hicpro}\
+        HiC-Pro\
             -i {params.fastq_dir}\
             -o {params.out_dir}\
             -c {input.hicpro_config}

@@ -1,0 +1,5 @@
+hicConvertFormat -m "hicpro_merged/hic_results/matrix/normal_tissue/iced/${matrix_size}/normal_tissue_${matrix_size}_iced.matrix" --bedFileHicpro "hicpro_m
+erged/hic_results/matrix/normal_tissue/raw/${matrix_size}/normal_tissue_${matrix_size}_abs.bed" --inputFormat hicpro --outputFormat h5 -o "manual_distcounts/
+h5/normal_tissue/${matrix_size}/normal_tissue_${matrix_size}_iced.h5"
+
+

@@ -45,8 +45,12 @@ samples = pd.DataFrame(merged_sra_meta.groupby('sample')['runid'].apply(list))
 # this means that we could use the .loc method to access rows/cols in the dataframe by index
 runs = merged_sra_meta.set_index('runid')
 
+##### these are all at the sample level
 # get samples grouped by dataset
-dsets = pd.DataFrame(meta_table.groupby('dataset')['sample'].apply(list))
+datasets = pd.DataFrame(meta_table.groupby('dataset')['sample'].apply(list))
+
+# get samples by avp (all valid pairs) merger
+mergers = pd.DataFrame(meta_table.groupby('merger')['sample'].apply(list))
 
 # FINALLY make sample index for the meta table
 meta_table.set_index('sample', inplace=True)

@@ -45,26 +45,19 @@ bowtie_alignment:
     index_dir: "resources/indexes/bowtie"
     index: "resources/indexes/bowtie/GRCh38"
  
-# genome digestion
-restriction_fragments: # I should add a dataset thing here
-    bed: "resources/restriction_fragments/GRCh38_arima.bed"
-    enzyme: "^GATC G^ANTC"  # digest_genome.py works for a list of sites, space separated
-    name: "arima"
-
 # fastq files
 sra_to_fastq_threads: 8
 
 # hicpro
 hicpro:
-    hic_tissue_PRJNA703392:
+    hic_PRJNA703392:
         threads: 38
         sort_mem: "1000M"
         bwt2_index: "resources/indexes/bowtie"
         chr_sizes: "resources/hg38.chrom.sizes"
         ref: "GRCh38"
-        genome_frags: "resources/restriction_fragments/GRCh38_arima.bed"
+        genome_frags: "resources/hic_PRJNA703392/fragments.bed"
+        enzyme: "^GATC G^ANTC" # this dataset is arima
         ligation_site: "GATCGATC,GANTGATC,GANTANTC,GATCANTC"
         resolutions: "1000 5000 10000 20000 40000 150000 500000 1000000"
 
-        
-        

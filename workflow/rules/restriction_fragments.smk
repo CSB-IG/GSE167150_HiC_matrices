@@ -6,11 +6,11 @@ rule restriction_fragments:
     Digest reference genome with Hi-C enzyme
     """
     output:
-        config['restriction_fragments']['bed']
+        "resources/{dataset}/fragments.bed"
     input:
         config['sequences']['genome_fasta']
     params:
-        enzyme = config['restriction_fragments']['enzyme'],
+        enzyme = lambda wc: config['hicpro'][wc.dataset]['enzyme'],
         script = "workflow/scripts/digest_genome.py"
     shell:
         '''
