@@ -17,7 +17,7 @@ rule render_hicpro_config:
         index = lambda wc: os.path.realpath(config['hicpro']['bwt2_index']),
         refgenome = config['hicpro']['ref'],
         chromosomes = lambda wc: os.path.realpath(config['hicpro']['chr_sizes']),
-        fragments = lambda wc: os.path.realpath(rules.restriction_fragments.output),
+        fragments = rules.restriction_fragments.output,
         ligations = config['hicpro']['ligation_site'],
         bins = config['hicpro']['resolutions']
     template_engine:
