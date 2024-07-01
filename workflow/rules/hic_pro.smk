@@ -16,7 +16,7 @@ def get_runs(wildcards, s):
 # sadly, samp is not a wildcard here, so we have to get it from somewhere
 # the dataframe samples index is what I need, for each of those, I need to create the expanded files
 
-def get_raw_files(wildcards):
+def get_input_fastq(wildcards):
     # obtain the samples
     _samps = samples.index.to_list()
 
