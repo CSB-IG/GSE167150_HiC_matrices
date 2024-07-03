@@ -46,16 +46,17 @@ rule run_hicpro:
         get_input_fastq,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
-        hicpro_config = rules.render_hicpro_config.output
+        hicpro_config = rules.render_hicpro_config.output,
+        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin'])
     params:
         # hicpro will emulate the input fastq directory structure for the output
         fastq_dir = "results/fastq",
         out_dir = "results/hicpro"
-    container:
-        'docker://nservant/hicpro:latest'
+    conda:
+        "../envs/hicpro.yaml"
     shell:
         '''
-        HiC-Pro\
+        {input.hicpro}\
             -i {params.fastq_dir}\
             -o {params.out_dir}\
             -c {input.hicpro_config}

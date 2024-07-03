@@ -20,19 +20,19 @@ downloads:
     GRCh38.d1.vd1.fa.tar.gz:
         url: "https://api.gdc.cancer.gov/data/254f697d-310d-4d7d-a27b-27fbf767a834"
         md5: "3ffbcfe2d05d43206f57f81ebb251dc9"
-#    v3.1.0.tar.gz:
-#        url: "https://github.com/nservant/HiC-Pro/archive/refs/tags/v3.1.0.tar.gz"
-#        md5: "7f1bfbc3ddc708a0b902beebf8a013df"
+    v3.1.0.tar.gz:
+        url: "https://github.com/nservant/HiC-Pro/archive/refs/tags/v3.1.0.tar.gz"
+        md5: "7f1bfbc3ddc708a0b902beebf8a013df"
 
 # download tcga reference genome
 download_tcga_genome:
     args: "--remote-name --remote-header-name --output-dir $(dirname {output})"
 
 # decompressing
-#software:
-#    hicpro_targz: "resources/downloads/v3.1.0.tar.gz"
-#    hicpro_dir: "resources/software/hicpro"
-#    hicpro_bin: "resources/software/hicpro/bin/HiC-Pro"
+software:
+    hicpro_targz: "resources/downloads/v3.1.0.tar.gz"
+    hicpro_dir: "resources/software/hicpro"
+    hicpro_bin: "resources/software/hicpro/bin/HiC-Pro"
 
 # sequences 
 sequences:

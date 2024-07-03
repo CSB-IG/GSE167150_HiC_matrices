@@ -1,11 +1,16 @@
 # Snakemake workflow: `<name>`
 
+change this repos name to "brca_hic"
+
+
+You run this using
+
+`snakemake --cores 58 --use-conda`
 
 
 ## Requirements
 
 - snakemake
-- docker
 
 
 
