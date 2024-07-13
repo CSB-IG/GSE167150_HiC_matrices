@@ -8,6 +8,8 @@ You run this using
 `snakemake --cores 58 --use-conda`
 
 
+One way to make this more efficient would be to do one hic pro run for each sample. It implies generating a config per sample, but it would be faster
+
 ## Requirements
 
 - snakemake
