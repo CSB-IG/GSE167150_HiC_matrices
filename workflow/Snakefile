@@ -17,15 +17,11 @@ include: "rules/restriction_fragments.smk"
 include: "rules/bowtie_index.smk"
 include: "rules/render_hicpro_config.smk"
 include: "rules/install_hicpro.smk"
-include: "rules/hic_pro.smk"
+include: "rules/hicpro_map.smk"
+#include: "rules/hic_pro.smk"
 #include: "rules/merged_hic_pro.smk"
 
 rule all:
     input:
-        "results/hicpro/.complete"
-
-#rule all:
-#    input:
-#        expand("results/{dataset}/hicpro/{dataset}.complete", dataset="hic_PRJNA703392"),
-#        expand("results/{dataset}/merged_hicpro/merged_{dataset}.complete", dataset="hic_PRJNA703392")
+        expand("results/hicpro_alignment/{samp}", samp=samples.index.to_list())
 
