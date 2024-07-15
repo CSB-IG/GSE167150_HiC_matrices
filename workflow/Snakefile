@@ -18,10 +18,11 @@ include: "rules/bowtie_index.smk"
 include: "rules/render_hicpro_config.smk"
 include: "rules/install_hicpro.smk"
 include: "rules/hicpro_map.smk"
+include: "rules/hicpro_filter.smk"
 #include: "rules/hic_pro.smk"
 #include: "rules/merged_hic_pro.smk"
 
 rule all:
     input:
-        expand("results/hicpro_alignment/{samp}", samp=samples.index.to_list())
+        expand("results/hicpro_filter/{samp}", samp=samples.index.to_list())
 
