@@ -18,8 +18,8 @@ rule hicpro_map:
     Run Hi-C Pro bowtie mapping on FASTQ files
     """
     output:
-        temp("results/hicpro_alignment/{samp}/hicpro/bowtie_results/bwt2_global"),
-        temp("results/hicpro_alignment/{samp}/hicpro/bowtie_results/bwt2_local"),
+        temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_global"),
+        temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_local"),
         out_dir = "results/hicpro_alignment/{samp}"
     input:
         get_input_fastq,
