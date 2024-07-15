@@ -25,15 +25,16 @@ rule hicpro_map:
         get_input_fastq,
         rules.restriction_fragments.output,
         rules.bowtie2_build.output,
-        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
+        hicpro_bin = config['software']['hicpro_bin'],
         hicpro_config = rules.render_hicpro_config.output
     params:
-        fastq_dir = "results/fastq/{samp}"
+        fastq_dir = "results/fastq/{samp}",
+        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin'])
     conda:
         "../envs/hicpro.yaml"
     shell:
         '''
-        {input.hicpro}\
+        {params.hicpro}\
             --input {params.fastq_dir}\
             --output {output.out_dir}\
             --conf {input.hicpro_config}\
