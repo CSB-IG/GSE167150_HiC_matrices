@@ -20,7 +20,7 @@ rule hicpro_map:
     output:
         temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_global"),
         temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_local"),
-        out_dir = "results/hicpro_alignment/{samp}"
+        out_dir = "results/hicpro_alignment/{samp}/bowtie_results/bwt2"
     input:
         get_input_fastq,
         rules.restriction_fragments.output,
