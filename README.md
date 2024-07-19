@@ -8,7 +8,18 @@ You run this using
 `snakemake --cores 58 --use-conda`
 
 
-One way to make this more efficient would be to do one hic pro run for each sample. It implies generating a config per sample, but it would be faster
+Eventually we might use the proper output files in the HiC-Pro rules, but for now the rules outputs are the directories, because that is the way HiC-Pro asks for the input
+
+We're just gonna commit this now and branch into trying out the actual output files version because we're currently getting
+
+```
+ImproperOutputException in rule hicpro_filter in file /STORAGE/genut/hreyes/GSE167150_HiC-Pro.git/workflow/rules/hicpro_filter.smk, line 4:
+Outputs of incorrect type (directories when expecting files or vice versa). Output directories must be flagged with directory(). for rule hicpro_filter:
+    output: results/hicpro_filter/ZR7530_rep2_GSM5098067
+    wildcards: samp=ZR7530_rep2_GSM5098067
+    affected files:
+        results/hicpro_filter/ZR7530_rep2_GSM5098067
+``` 
 
 ## Requirements
 

@@ -13,6 +13,10 @@ def get_input_fastq(wildcards):
 
     return expand("results/fastq/{{samp}}/{{samp}}/{sra_run}_{r}.fastq.gz", sra_run=_sruns, r=[1,2])
 
+# The outputs from this rule are as many as fastq pairs (so one output for each rule).
+# Hi-C Pairs from each run are only merged when allvalidpairs files (one per run) are available
+# So should the sra_run wildcard not be expanded until that point? but how do I get the fastq files then? feed it the wildcard? from the following rule? 
+
 rule hicpro_map:
     """
     Run Hi-C Pro bowtie mapping on FASTQ files

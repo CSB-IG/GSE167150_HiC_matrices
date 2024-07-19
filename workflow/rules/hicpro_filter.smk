@@ -8,7 +8,7 @@ rule hicpro_filter:
     output:
         out_dir = "results/hicpro_filter/{samp}"
     input:
-        bams_dir = "results/hicpro_alignment/{samp}",
+        in_dir = rules.hicpro_map.output['out_dir'],
         hicpro_bin = config['software']['hicpro_bin'],
         hicpro_config = rules.render_hicpro_config.output
     params:
@@ -18,7 +18,7 @@ rule hicpro_filter:
     shell:
         '''
         {params.hicpro}\
-            --input {input.bams_dir}\
+            --input {input.in_dir}\
             --output {output.out_dir}\
             --conf {input.hicpro_config}\
             --step proc_hic
