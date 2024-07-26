@@ -20,6 +20,7 @@ include: "rules/install_hicpro.smk"
 include: "rules/hicpro_align.smk"
 include: "rules/hicpro_pairs.smk"
 include: "rules/hicpro_allvalidpairs.smk"
+include: "rules/hicpro_contacts_raw.smk"
 #include: "rules/hic_pro.smk"
 #include: "rules/merged_hic_pro.smk"
 
