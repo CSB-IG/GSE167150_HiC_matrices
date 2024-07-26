@@ -17,14 +17,14 @@ def get_input_fastq(wildcards):
 # Hi-C Pairs from each run are only merged when allvalidpairs files (one per run) are available
 # So should the sra_run wildcard not be expanded until that point? but how do I get the fastq files then? feed it the wildcard? from the following rule? 
 
-rule hicpro_map:
+rule hicpro_align:
     """
     Run Hi-C Pro bowtie mapping on FASTQ files
     """
     output:
-        temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_global"),
-        temp("results/hicpro_alignment/{samp}/bowtie_results/bwt2_local"),
-        out_dir = "results/hicpro_alignment/{samp}/bowtie_results/bwt2"
+        temp(directory("results/hicpro_alignment/{samp}/bowtie_results/bwt2_global")),
+        temp(directory("results/hicpro_alignment/{samp}/bowtie_results/bwt2_local")),
+        out_dir = directory("results/hicpro_alignment/{samp}/bowtie_results/bwt2")
     input:
         get_input_fastq,
         rules.restriction_fragments.output,
