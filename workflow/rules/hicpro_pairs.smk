@@ -4,6 +4,7 @@
 rule hicpro_pairs:
     """
     Run Hi-C Pro step that filters alignments on BAM files and creates HiC pairs
+    The quality checks step produces the hic_results pic directory
     """
     output:
         out_dir = directory("results/hicpro_pairs/{samp}/hic_results/data/{samp}")
@@ -21,8 +22,7 @@ rule hicpro_pairs:
             --input {input.in_dir}\
             --output {output.out_dir}\
             --conf {input.hicpro_config}\
-            --step proc_hic\ 
-            # this step produces the hic_results/pic directory
+            --step proc_hic\
             --step quality_checks
         '''
 
