@@ -19,10 +19,11 @@ include: "rules/render_hicpro_config.smk"
 include: "rules/install_hicpro.smk"
 include: "rules/hicpro_align.smk"
 include: "rules/hicpro_pairs.smk"
+include: "rules/hicpro_allvalidpairs.smk"
 #include: "rules/hic_pro.smk"
 #include: "rules/merged_hic_pro.smk"
 
 rule all:
     input:
-        expand("results/hicpro_pairs/{samp}/hic_results/data/{samp}", samp=samples.index.to_list())
+        expand("results/hicpro_allvpairs/{samp}/hic_results/data", samp=samples.index.to_list())
 

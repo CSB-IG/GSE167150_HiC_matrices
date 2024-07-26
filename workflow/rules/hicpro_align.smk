@@ -33,14 +33,15 @@ rule hicpro_align:
         hicpro_config = rules.render_hicpro_config.output
     params:
         fastq_dir = "results/fastq/{samp}",
-        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin'])
+        hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
+        out_dir = "results/hicpro_alignment/{samp}"
     conda:
         "../envs/hicpro.yaml"
     shell:
         '''
         {params.hicpro}\
             --input {params.fastq_dir}\
-            --output {output.out_dir}\
+            --output {params.out_dir}\
             --conf {input.hicpro_config}\
             --step mapping
         '''

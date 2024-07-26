@@ -21,6 +21,9 @@ Outputs of incorrect type (directories when expecting files or vice versa). Outp
         results/hicpro_filter/ZR7530_rep2_GSM5098067
 ``` 
 
+To merge sample replicates we must
+symlink the `.allValidPairs` from each replicate as `validPairs` and run the hicpro_allvalidpairs.smk rule on them 
+
 ## Requirements
 
 - snakemake

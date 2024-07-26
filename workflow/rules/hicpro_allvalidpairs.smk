@@ -1,20 +1,20 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-rule hicpro_pairs:
+rule hicpro_allvalidpairs:
     """
-    Run Hi-C Pro step that filters alignments on BAM files and creates HiC pairs
-    The quality checks step produces the hic_results pic directory
+    Run Hi-C Pro step that deduplicates and merges valid pairs per sample
+    The hic_results stats directory is created 
     """
     output:
-        out_dir = directory("results/hicpro_pairs/{samp}/hic_results/data")
+        out_dir = directory("results/hicpro_allvpairs/{samp}/hic_results/data")
     input:
-        in_dir = rules.hicpro_align.output['out_dir'],
+        in_dir = rules.hicpro_pairs.output['out_dir'],
         hicpro_bin = config['software']['hicpro_bin'],
         hicpro_config = rules.render_hicpro_config.output
     params:
         hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
-        out_dir = "results/hicpro_pairs/{samp}"
+        out_dir = "results/hicpro_allvpairs/{samp}"
     conda:
         "../envs/hicpro.yaml"
     shell:
@@ -23,7 +23,6 @@ rule hicpro_pairs:
             --input {input.in_dir}\
             --output {params.out_dir}\
             --conf {input.hicpro_config}\
-            --step proc_hic\
-            --step quality_checks
+            --step merge_persample
         '''
 
