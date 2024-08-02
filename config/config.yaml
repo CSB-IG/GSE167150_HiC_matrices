@@ -14,6 +14,7 @@ samples_metadata:
 
 # directory for temps
 tmpdir: "/tmp"
+#tmpdir: "/datos/lymphocytes/hreyes/tmp"
 
 # remote downloads
 downloads:
@@ -52,11 +53,11 @@ bowtie_alignment:
     index: "resources/indexes/bowtie/GRCh38"
  
 # fastq files
-sra_to_fastq_threads: 8
+sra_to_fastq_threads: 12
 
 # hicpro
 hicpro:
-    threads: 38
+    threads: 48
     sort_mem: "1000M"
     bwt2_index: "resources/indexes/bowtie"
     ref: "GRCh38"

@@ -11,12 +11,13 @@ rule hicpro_contacts_iced:
     output:
         out_dir = directory("results/hicpro_contacts_iced/{samp}/hic_results/matrix")
     input:
-        in_dir = rules.hicpro_contacts_raw.output['out_dir'],
-        hicpro_bin = config['software']['hicpro_bin'],
-        hicpro_config = rules.render_hicpro_config.output
+        in_dir = rules.hicpro_contacts_raw.output['out_dir']#,
+#        hicpro_bin = config['software']['hicpro_bin'],
+#        hicpro_config = rules.render_hicpro_config.output
     params:
         hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
-        out_dir = "results/hicpro_contacts_iced/{samp}"
+        out_dir = "results/hicpro_contacts_iced/{samp}",
+        hicpro_config = "resources/hicpro/config-hicpro.txt"
     conda:
         "../envs/hicpro.yaml"
     shell:
@@ -24,7 +25,7 @@ rule hicpro_contacts_iced:
         {params.hicpro}\
             --input {input.in_dir}\
             --output {params.out_dir}\
-            --conf {input.hicpro_config}\
+            --conf {params.hicpro_config}\
             --step ice_norm
         '''
 

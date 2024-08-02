@@ -9,12 +9,13 @@ rule hicpro_pairs:
     output:
         out_dir = directory("results/hicpro_pairs/{samp}/hic_results/data")
     input:
-        in_dir = rules.hicpro_align.output['out_dir'],
-        hicpro_bin = config['software']['hicpro_bin'],
-        hicpro_config = rules.render_hicpro_config.output
+        in_dir = rules.hicpro_align.output['out_dir']#,
+#        hicpro_bin = config['software']['hicpro_bin'],
+#        hicpro_config = rules.render_hicpro_config.output
     params:
         hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),
-        out_dir = "results/hicpro_pairs/{samp}"
+        out_dir = "results/hicpro_pairs/{samp}",
+        hicpro_config = "resources/hicpro/config-hicpro.txt"
     conda:
         "../envs/hicpro.yaml"
     shell:
@@ -22,7 +23,7 @@ rule hicpro_pairs:
         {params.hicpro}\
             --input {input.in_dir}\
             --output {params.out_dir}\
-            --conf {input.hicpro_config}\
+            --conf {params.hicpro_config}\
             --step proc_hic\
             --step quality_checks
         '''

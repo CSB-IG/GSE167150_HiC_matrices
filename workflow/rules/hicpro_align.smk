@@ -31,6 +31,10 @@ rule hicpro_align:
         rules.bowtie2_build.output,
         hicpro_bin = config['software']['hicpro_bin'],
         hicpro_config = rules.render_hicpro_config.output
+    log:
+        "logs/hicpro_align/{samp}-hicpro_align.log"
+    benchmark:
+        "benchmarks/hicpro_align/{samp}-hicpro_align.bmk"
     params:
         fastq_dir = "results/fastq/{samp}",
         hicpro = lambda wc: os.path.realpath(config['software']['hicpro_bin']),

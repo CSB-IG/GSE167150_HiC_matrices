@@ -44,11 +44,12 @@ rule sra_to_fastq:
     shell:
         '''
         tdir=$(mktemp -d {config[tmpdir]}/{rule}.{wildcards.sra_run}.XXXXXX)
-	parallel-fastq-dump\
+        
+        parallel-fastq-dump\
             --threads {threads}\
             --tmpdir $tdir\
-	    --outdir $tdir\
-	    --split-files\
+            --outdir $tdir\
+            --split-files\
             --origfmt\
             --skip-technical\
             --sra-id {input}\
