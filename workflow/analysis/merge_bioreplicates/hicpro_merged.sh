@@ -28,5 +28,5 @@ sed -i 's/RM_DUP = 1/RM_DUP = 0/' resources/hicpro/merged_config-hicpro.txt
 conda activate hicpro
 
 # run HiC-Pro
-resources/software/hicpro/bin/HiC-Pro -i results/hicpro_merged/hicpro_pairs -o results/hicpro_merged/hicpro_phenotypes -c resources/hicpro/merged_config-hicpro.txt -s merge_persample build_contact_maps ice_norm
+resources/software/hicpro/bin/HiC-Pro -i results/hicpro_merged/hicpro_pairs -o results/hicpro_merged/hicpro_phenotypes -c resources/hicpro/merged_config-hicpro.txt -s merge_persample -s build_contact_maps -s ice_norm
 
