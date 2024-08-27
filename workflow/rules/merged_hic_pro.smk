@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
-# get the dataset for each sample
+# get the samples from each merger
+
+#mergers = pd.DataFrame(meta_table.groupby('merger')['sample'].apply(list))
 def get_avp(wildcards):
-    ds = meta_table.loc[wildcards.sample]['dataset']
+    ds = mergers.loc[wildcards.sample]['dataset']
     return expand("results/{dataset}/hicpro/hic_results/data/{{sample}}/{{sample}}.allValidPairs", dataset=ds)
 
 # mergers should not depend on the dataset, because we might want to 
