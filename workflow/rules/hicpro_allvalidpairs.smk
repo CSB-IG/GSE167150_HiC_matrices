@@ -7,7 +7,8 @@ rule hicpro_allvalidpairs:
     The hic_results stats directory is created 
     """
     output:
-        out_dir = directory("results/hicpro_allvpairs/{samp}/hic_results/data")
+        out_dir = directory("results/hicpro_allvpairs/{samp}/hic_results/data"),
+        sample_allvalidpairs = "results/hicpro_allvpairs/{sample}/hic_results/data/{sample}/{sample}.allValidPairs"
     input:
         in_dir = rules.hicpro_pairs.output['out_dir']#,
 #        hicpro_bin = config['software']['hicpro_bin'],

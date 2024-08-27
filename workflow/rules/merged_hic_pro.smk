@@ -1,31 +1,20 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-# get the samples from each merger
-
-#mergers = pd.DataFrame(meta_table.groupby('merger')['sample'].apply(list))
-def get_avp(wildcards):
-    ds = mergers.loc[wildcards.sample]['dataset']
-    return expand("results/{dataset}/hicpro/hic_results/data/{{sample}}/{{sample}}.allValidPairs", dataset=ds)
-
-# mergers should not depend on the dataset, because we might want to 
-# merge samples from different datasets
-# do different enzymes allow merging?
-#
 # rule to generate symlinks to the deduplicated allvalidpairs
-rule symlink_avp:
+rule avp_to_vp:
     """
     Symlink allValidPairs files into validPairs files
     """
     output:
-        "results/mergers/allvalidpairs/{merger}/{sample}.validPairs"
+        "results/hicpro_merged/hicpro_pairs/{merger}/{sample}.validPairs"
     input:
-        get_avp
+        expand("results/hicpro_allvpairs/{sample}/hic_results/data/{sample}/{sample}.allValidPairs", sample=mergers.loc[wildcards.merger]['sample'])
     params:
-        outdir = "results/mergers/allvalidpairs/{merger}"
+        outdir = "results/hicpro_merged/hicpro_pairs/{merger}"
     shell:
         """
+        # you have to find if you can do them all at once
         mkdir -p {params.outdir}
 
         i=$(realpath {input})
