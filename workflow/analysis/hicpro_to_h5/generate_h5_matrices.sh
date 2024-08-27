@@ -20,4 +20,5 @@ conda activate hicexplorer
 workflow/analysis/hicpro_to_h5/convert_hicpro_to_h5.sh
 
 # converte HiC-Pro merged phenotype matrices
+workflow/analysis/hicpro_to_h5/convert_merged_hicpro_to_h5.sh
 
